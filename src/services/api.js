@@ -1,26 +1,48 @@
 import axios from 'axios';
 
-// Backend URL from environment variable
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+// Backend URL
+const BASE_URL = 'https://accredian-backend-task-pptk.onrender.com';
 
-// Example API call — GET request
-export const fetchData = async () => {
+// Fetch all courses (GET request)
+export const fetchCourses = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/data`);
-    return response.data;
+    const response = await axios.get(`${BASE_URL}/api/courses`);
+    return response.data;  // Return the courses data
   } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
+    console.error('Error fetching courses:', error);
+    throw error;  // Throw error if the request fails
   }
 };
 
-// Example API call — POST request
-export const postData = async (payload) => {
+// Add a new course (POST request)
+export const addCourse = async (course) => {
   try {
-    const response = await axios.post(`${BASE_URL}/api/data`, payload);
-    return response.data;
+    const response = await axios.post(`${BASE_URL}/api/courses`, course);
+    return response.data;  // Return the newly added course data
   } catch (error) {
-    console.error('Error posting data:', error);
-    throw error;
+    console.error('Error adding course:', error);
+    throw error;  // Throw error if the request fails
+  }
+};
+
+// Update an existing course (PUT request)
+export const updateCourse = async (id, course) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/api/courses/${id}`, course);
+    return response.data;  // Return the updated course data
+  } catch (error) {
+    console.error('Error updating course:', error);
+    throw error;  // Throw error if the request fails
+  }
+};
+
+// Delete a course (DELETE request)
+export const deleteCourse = async (id) => {
+  try {
+    await axios.delete(`${BASE_URL}/api/courses/${id}`);
+    return id;  // Return the course ID that was deleted
+  } catch (error) {
+    console.error('Error deleting course:', error);
+    throw error;  // Throw error if the request fails
   }
 };
